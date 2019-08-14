@@ -91,9 +91,9 @@ def run(args, h1, h2, N, lr=0.0002, n_epoch=200):
              transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
         if args.dataset == 'MNIST':
-            trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+            trainset = torchvision.datasets.MNIST(root='./data/MNIST', train=True, download=True, transform=transform)
         elif args.dataset == 'Fashion':
-            trainset = torchvision.datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
+            trainset = torchvision.datasets.FashionMNIST(root='./data/FashionMNIST', train=True, download=True, transform=transform)
 
         if len(args.params) != 2:
             raise(TypeError)
@@ -143,7 +143,7 @@ def run(args, h1, h2, N, lr=0.0002, n_epoch=200):
                 self.train_data = torch.from_numpy(np.array([normalize(np.random.normal(size=d)) for _ in range(n)])).float()
                 self.train_labels = torch.from_numpy(normalize(np.random.normal(size=n))).float()
 
-        trainset = synthetic(2*N, int(args.params))
+        trainset = synthetic(N, int(args.params))
 
 
     # 3-layer network
@@ -250,6 +250,7 @@ def run(args, h1, h2, N, lr=0.0002, n_epoch=200):
         # extract Loss and print
         Loss_record.append(running_loss)
         if (epoch + 1) % 20 == 0:
+            print('--------------------', args,dataset, args.params, '--------------------')
             print('%d loss: %.8f' % (epoch + 1, running_loss))
             #print(lambda_min)
 
@@ -269,8 +270,9 @@ def main():
     for h1, h2, N in cand:
         succeed = 0
         for _ in range(100):
-            if succeed == 1:
+            if succeed == 3:
                 break
+            print('---------------------------', args.dataset, args.params, '---------------------------')
             print('---------------------------', h1, h2, N, '---------------------------')
 
             a = datetime.now()
