@@ -250,7 +250,7 @@ def run(args, h1, h2, N, lr=0.0002, n_epoch=200):
         # extract Loss and print
         Loss_record.append(running_loss)
         if (epoch + 1) % 20 == 0:
-            print('--------------------', args,dataset, args.params, '--------------------')
+            print('--------------------', args.dataset, args.params, '--------------------')
             print('%d loss: %.8f' % (epoch + 1, running_loss))
             #print(lambda_min)
 
