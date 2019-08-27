@@ -143,7 +143,7 @@ def run(args, h1, h2, N, lr=0.0002, n_epoch=200):
                 self.train_data = torch.from_numpy(np.array([normalize(np.random.normal(size=d)) for _ in range(n)])).float()
                 self.train_labels = torch.from_numpy(normalize(np.random.normal(size=n))).float()
 
-        trainset = synthetic(N, int(args.params))
+        trainset = synthetic(2*N, int(args.params))
 
 
     # 3-layer network
